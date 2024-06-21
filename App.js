@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform,  StyleSheet, Text, View } from 'react-native';
+import { Platform,  StyleSheet, Text, TextComponent, View } from 'react-native';
 import Header from './src/Header';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -10,6 +10,7 @@ import Division from './src/Division';
 import FriendSection from './src/FriendSection';
 import FriendList from './src/FriendList';
 import { useState } from 'react';
+import TabBar from './src/TabBar';
 
 //상단바 높이 게산 : iphone 상단 노치 영역 포함
 //히단 안전 영역 높이 계산  
@@ -40,6 +41,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
     <SafeAreaView style={styles.container} edges={['top','right', 'left','bottom']} >
+      
       <Header/>
       <Margin height={10}/>
       {/*Margin 높이 10 넘김 */}
@@ -62,6 +64,14 @@ export default function App() {
         data={friendProfiles}
         isOpened={isOpened}
       />
+      
+      <TabBar/>
+        
+        
+        
+    
+
+
     </SafeAreaView>
 
 
