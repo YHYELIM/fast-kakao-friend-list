@@ -3,6 +3,9 @@ import { Platform,  StyleSheet, Text, View } from 'react-native';
 import Header from './src/Header';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import MyProfile from './src/MyProfile';
+import { myProfile } from './src/data';
+import Margin from './src/Margin';
 
 //상단바 높이 게산 : iphone 상단 노치 영역 포함
 //히단 안전 영역 높이 계산  
@@ -19,6 +22,13 @@ export default function App() {
     <SafeAreaProvider>
     <SafeAreaView style={{flex: 1 }} edges={['top','right', 'left']} >
       <Header/>
+      <Margin height={10}/>
+      {/*Margin 높이 10 넘김 */}
+      <MyProfile
+        uri={myProfile.uri}
+        name={myProfile.name}
+        introduction={myProfile.introduction}
+      />
     </SafeAreaView>
     
     </SafeAreaProvider>  
