@@ -18,7 +18,7 @@ const statusBarHeight = getStatusBarHeight(true);
 const bottomSpace = getBottomSpace();
 
 //위 아래 높이 확인 콘솔 
-console.log(`${Platform.OS}: ${statusBarHeight}, ${bottomSpace}`);
+// console.log(`${Platform.OS}: ${statusBarHeight}, ${bottomSpace}`);
 
 
 
@@ -29,6 +29,10 @@ export default function App() {
   
   const [isOpened, setIsOpened]= useState(true);
   //기존 state가 열려있는것으로 세팅 
+  const [selectedTabIdx, setSelectedTabIdx] = useState(0);
+  //0,1,2,3 으로 세팅하면 각각 탭이 선택된 인덱스를 저장 
+  //탭바 입장에서는 selectedTabIdx,  selectedTabIdx 둘다 알고 있어야함 
+
 
   const onPressArrow =()=>{
     //console.log('clicked arrow');
@@ -65,12 +69,12 @@ export default function App() {
         isOpened={isOpened}
       />
       
-      <TabBar/>
-        
-        
-        
+      <TabBar
+        selectedTabIdx = {selectedTabIdx}
+        setSelectedTabIdx = {setSelectedTabIdx}
     
-
+      />
+        
 
     </SafeAreaView>
 
