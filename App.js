@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform,  StyleSheet, Text, TextComponent, View } from 'react-native';
+import { FlatList, Platform,  StyleSheet, Text, TextComponent, View } from 'react-native';
 import Header from './src/Header';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -38,21 +38,27 @@ export default function App() {
     //console.log('clicked arrow');
     setIsOpened(!isOpened);// 현재 열린 값에서 반대값으로 세팅 
   }
-  
-  
 
-
-  return (
-    <SafeAreaProvider>
-    <SafeAreaView style={styles.container} edges={['top','right', 'left','bottom']} >
-      
+  const ItemSeparatorComponent = ()=><Margin height ={13}/>
+  
+  const renderItem =({item})=> (
+    <Profile
+      uri={item.uri}
+      name={item.name}
+      introduction={item.introduction} 
+      isMe={false}
+    />
+  )
+  const ListHeaderComponent =()=> (
+    <View style={{backgroundColor:"white"}}>
       <Header/>
-      <Margin height={10}/>
-      {/*Margin 높이 10 넘김 */}
-      <Profile
+     <Margin height={10}/>
+     {/*Margin 높이 10 넘김 */}
+     <Profile
         uri={myProfile.uri}
         name={myProfile.name}
         introduction={myProfile.introduction}
+        isMe={true}
       />
       <Margin height={15}/>
 
@@ -63,26 +69,78 @@ export default function App() {
         onPressArrow={onPressArrow}
         isOpened={isOpened}  
       />
+      <Margin height ={5}/>
 
-      <FriendList
-        data={friendProfiles}
-        isOpened={isOpened}
+    </View>
+  )
+
+  const ListFooterComponent =()=> <Margin height ={10}/>
+
+  return (
+    <View style={styles.container}>
+      <FlatList 
+        data={isOpened? friendProfiles : []} //isOpened True -> friendProfiles 그렇지 않으면 배열을 0 으로 만든다
+        contentContainerStyle={{ paddingHorizontal:15}}
+        keyExtractor={(_, index) => index}
+        stickyHeaderIndices={[0]}//고정할 Header index 
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        renderItem={renderItem}
+        ListHeaderComponent={ListHeaderComponent}
+        ListFooterComponent={ListFooterComponent}
+        showsVerticalScrollIndicator={false} //스크롤 막대 안보이게 
+
+
       />
-      
       <TabBar
         selectedTabIdx = {selectedTabIdx}
         setSelectedTabIdx = {setSelectedTabIdx}
-    
       />
+    </View>
+  );
+};
+
+  //스크롤 뷰 로 설계 
+  // return (
+  //   <SafeAreaProvider>
+  //   <SafeAreaView style={styles.container} edges={['top','right', 'left','bottom']} >
+      
+  //     <Header/>
+  //     <Margin height={10}/>
+  //     {/*Margin 높이 10 넘김 */}
+  //     <Profile
+  //       uri={myProfile.uri}
+  //       name={myProfile.name}
+  //       introduction={myProfile.introduction}
+  //     />
+  //     <Margin height={15}/>
+
+  //     <Division/>
+  //     <Margin height={12}/>
+  //     <FriendSection
+  //       friendProfileLen={friendProfiles.length}
+  //       onPressArrow={onPressArrow}
+  //       isOpened={isOpened}  
+  //     />
+
+  //     <FriendList
+  //       data={friendProfiles}
+  //       isOpened={isOpened}
+  //     />
+      
+  //     <TabBar
+  //       selectedTabIdx = {selectedTabIdx}
+  //       setSelectedTabIdx = {setSelectedTabIdx}
+    
+  //     />
         
 
-    </SafeAreaView>
+  //   </SafeAreaView>
 
 
     
-    </SafeAreaProvider>  
-  );
-}
+  //   </SafeAreaProvider>  
+  // );
+
 
 const styles = StyleSheet.create({
   container: {

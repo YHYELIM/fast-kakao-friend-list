@@ -16,7 +16,7 @@ return(
 
 export default ()=>{
     return(
-        <View style = {{flexDirection: "row", justifyContent:"space-between", paddingVertical: 10, 
+        <View style = {{flexDirection: "row", justifyContent:"space-between", paddingVertical: 10, backgroundColor:"white"
         }}>
             <Text style={{fontSize:22, fontWeight:"bold"}}>친구</Text>
             
