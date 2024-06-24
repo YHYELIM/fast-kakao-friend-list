@@ -12,6 +12,7 @@ import FriendList from './src/FriendList';
 import { useState } from 'react';
 import TabBar from './src/TabBar';
 
+
 //상단바 높이 게산 : iphone 상단 노치 영역 포함
 //히단 안전 영역 높이 계산  
 const statusBarHeight = getStatusBarHeight(true);
@@ -78,6 +79,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      
+
       <FlatList 
         data={isOpened? friendProfiles : []} //isOpened True -> friendProfiles 그렇지 않으면 배열을 0 으로 만든다
         contentContainerStyle={{ paddingHorizontal:15}}
@@ -95,6 +98,8 @@ export default function App() {
         selectedTabIdx = {selectedTabIdx}
         setSelectedTabIdx = {setSelectedTabIdx}
       />
+      
+
     </View>
   );
 };
@@ -151,4 +156,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
+
 
